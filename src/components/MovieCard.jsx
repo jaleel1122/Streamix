@@ -8,7 +8,11 @@ const MovieCard = ({ movie }) => {
   const type = media_type || (first_air_date ? 'tv' : 'movie');
 
   const handleClick = () => {
-    if (!id) return;
+    if (!id) {
+      console.log('No ID found for movie:', movie);
+      return;
+    }
+    console.log('Navigating to:', `/details/${type}/${id}`);
     navigate(`/details/${type}/${id}`);
   };
 

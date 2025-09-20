@@ -19,6 +19,8 @@ const Details = () => {
   const [details, setDetails] = useState(null);
   const [videoKey, setVideoKey] = useState('');
 
+  console.log('Details component loaded with:', { mediaType, id });
+
   useEffect(() => {
     const load = async () => {
       if (!id || !mediaType) return;
