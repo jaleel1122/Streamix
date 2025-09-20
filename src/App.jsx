@@ -76,10 +76,11 @@ try{
 const loadTrendingMovies = async () => {
     try {
       const movies = await getTrendingMovies();
-
-      setTrendingMovies(movies);
+      console.log('Trending movies loaded:', movies);
+      setTrendingMovies(movies || []);
     } catch (error) {
       console.error(`Error fetching trending movies: ${error}`);
+      setTrendingMovies([]);
     }
   }
 
@@ -101,18 +102,26 @@ const loadTrendingMovies = async () => {
             <h1>Find <span className='text-gradient'>Movies</span> You'll Enjoy Without the Hassle</h1>
           </header>
 
-              {trendingMovies.length > 0 && (
+              {trendingMovies && trendingMovies.length > 0 && (
           <section className="trending">
             <h2>Trending Movies</h2>
 
             <ul>
               {trendingMovies.map((movie, index) => (
-                <li key={movie.$id}>
+                <li key={movie.$id || index}>
                   <p>{index + 1}</p>
-                  <img src={movie.poster_url} alt={movie.title} />
+                  <img src={movie.poster_url} alt={movie.title || 'Movie'} />
                 </li>
               ))}
             </ul>
+          </section>
+        )}
+
+        {/* Show message if no trending movies */}
+        {trendingMovies && trendingMovies.length === 0 && (
+          <section className="trending">
+            <h2>Trending Movies</h2>
+            <p className="text-orange-200 text-center">No trending movies yet. Search for movies to see them here!</p>
           </section>
         )}
 
